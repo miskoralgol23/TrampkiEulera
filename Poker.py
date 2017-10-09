@@ -38,3 +38,8 @@ c_dict = {
 
 with open("p054_poker.txt") as f:
     dat=f.readlines()
+
+dat = [d.replace("\n","") for d in dat]
+
+"""
+Wszystko ladnie pieknie poki co, ale co jezeli bedziemy mieli skrypt odplaony np z katalogu ppnizej tak ze nie ma czegos takiego pliku jak "poker'txt" w biezacym katalogu"""
