@@ -41,5 +41,11 @@ with open("p054_poker.txt") as f:
 
 dat = [d.replace("\n","") for d in dat]
 
+hands_order = ["HC","OP","TP","Th", "S", "F", "FH", "Fo", "SF", "RF"]
+
+def game_no(n):
+    return dat[n]
+
+
 """
 Wszystko ladnie pieknie poki co, ale co jezeli bedziemy mieli skrypt odplaony np z katalogu ppnizej tak ze nie ma czegos takiego pliku jak "poker'txt" w biezacym katalogu"""
