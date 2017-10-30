@@ -49,3 +49,8 @@ def game_no(n):
 
 """
 Wszystko ladnie pieknie poki co, ale co jezeli bedziemy mieli skrypt odplaony np z katalogu ppnizej tak ze nie ma czegos takiego pliku jak "poker'txt" w biezacym katalogu"""
+
+
+def hand_no(n,player=1):
+    return game_no(n)[0:14] if player==1 else game_no(n)[15:]
+
