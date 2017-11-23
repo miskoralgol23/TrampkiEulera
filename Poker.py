@@ -16,7 +16,6 @@ Royal Flush: Ten, Jack, Queen, King, Ace, in same suit.
 The cards are valued in the order:
 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King, Ace.
 
-
 HC - High Card
 OP - One Pair
 TP - Two Pairs
@@ -54,3 +53,5 @@ Wszystko ladnie pieknie poki co, ale co jezeli bedziemy mieli skrypt odplaony np
 def hand_no(n,player=1):
     return game_no(n)[0:14] if player==1 else game_no(n)[15:]
 
+card_suits = ["D","H","C","S"]
+card_numbers = [x+2 for x in range(8)]
