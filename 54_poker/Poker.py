@@ -54,4 +54,13 @@ def hand_no(n,player=1):
     return game_no(n)[0:14] if player==1 else game_no(n)[15:]
 
 card_suits = ["D","H","C","S"]
-card_numbers = [x+2 for x in range(8)]
+card_numbers = [str(x+2) for x in range(9)]
+card_numbers.append("J")
+card_numbers.append("Q")
+card_numbers.append("K")
+card_numbers.append("A")
+
+deck =  [num + suit for num in card_numbers for suit in card_suits]
+
+
+
