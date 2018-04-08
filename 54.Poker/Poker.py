@@ -28,12 +28,7 @@ SF - Straight Flush
 RF - Royal Flush
 """
 
-c_dict = {
-"J":"Jack",
-"Q":"Queen",
-"K":"King",
-"A":"Ace"}
-
+c_dict = {"J":"Jack","Q":"Queen","K":"King","A":"Ace"}
 
 with open("p054_poker.txt") as f:
     dat=f.readlines()
@@ -45,24 +40,24 @@ hands_order = ["HC","OP","TP","Th", "S", "F", "FH", "Fo", "SF", "RF"]
 def game_no(n):
     return dat[n]
 
-
 """
 Wszystko ladnie pieknie poki co, ale co jezeli bedziemy mieli skrypt odplaony np z katalogu ppnizej tak ze nie ma czegos takiego pliku jak "poker'txt" w biezacym katalogu"""
 
 
 def hand_no(n,player=1):
-    return game_no(n)[0:14] if player==1 else game_no(n)[15:]
+    return game_no(n)[0:14].split() if player==1 else game_no(n)[15:].split()
 
 card_suits = ["D","H","C","S"]
 card_numbers = [str(x+2) for x in range(8)]
-card_numbers.append("T")
-card_numbers.append("J")
-card_numbers.append("Q")
-card_numbers.append("K")
-card_numbers.append("A")
 
+for num in ["T", "J","Q","K","A"]:
+    card_numbers.append(num)
 
 deck =  [num + suit for num in card_numbers for suit in card_suits]
 
+from collections import Counter
 
+def card_value(cardNo):
+    return card_numbers.index(cardNo) + 2
 
+print card_value("T")
