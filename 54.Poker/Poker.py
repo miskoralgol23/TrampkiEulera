@@ -60,4 +60,4 @@ from collections import Counter
 def card_value(cardNo):
     return card_numbers.index(cardNo) + 2
 
-print card_value("T")
+print(card_value("T"))
