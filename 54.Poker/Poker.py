@@ -12,7 +12,6 @@ Four of a Kind: Four cards of the same value.
 Straight Flush: All cards are consecutive values of same suit.
 Royal Flush: Ten, Jack, Queen, King, Ace, in same suit.
 
-
 The cards are valued in the order:
 2, 3, 4, 5, 6, 7, 8, 9, 10, Jack, Queen, King, Ace.
 
@@ -29,26 +28,28 @@ RF - Royal Flush
 """
 
 c_dict = {"J":"Jack","Q":"Queen","K":"King","A":"Ace"}
+hands_order = ["HC","OP","TP","Th", "S", "F", "FH", "Fo", "SF", "RF"]
 
 with open("p054_poker.txt") as f:
     dat=f.readlines()
 
 dat = [d.replace("\n","") for d in dat]
 
-hands_order = ["HC","OP","TP","Th", "S", "F", "FH", "Fo", "SF", "RF"]
-
 def game_no(n):
     return dat[n]
 
-"""
-Wszystko ladnie pieknie poki co, ale co jezeli bedziemy mieli skrypt odplaony np z katalogu ppnizej tak ze nie ma czegos takiego pliku jak "poker'txt" w biezacym katalogu"""
+card_suits = ["C","D","H","S"]
+card_numbers = [str(x+2) for x in range(8)]
 
+def card_value(cardNo):
+    return card_numbers.index(cardNo) + 2
+
+def suit_value(suitLetter):
+    return card_suits.index(suitLetter)
 
 def hand_no(n,player=1):
-    return game_no(n)[0:14].split() if player==1 else game_no(n)[15:].split()
-
-card_suits = ["D","H","C","S"]
-card_numbers = [str(x+2) for x in range(8)]
+    temp = game_no(n)[0:14].split() if player==1 else game_no(n)[15:].split()
+    return sorted(temp, key=lambda x: card_value(x[0]) - float(suit_value(x[1]))/4,reverse=True)
 
 for num in ["T", "J","Q","K","A"]:
     card_numbers.append(num)
@@ -57,7 +58,19 @@ deck =  [num + suit for num in card_numbers for suit in card_suits]
 
 from collections import Counter
 
-def card_value(cardNo):
-    return card_numbers.index(cardNo) + 2
+def cnts(hand):
+    n = Counter(map(lambda x: x[0], hand))
+    s = Counter(map(lambda x: x[1], hand))
+    return (n,s)
 
-print(card_value("T"))
+h = hand_no(9)
+print(h)
+x = cnts(h)
+
+if len(x[0]) < 5:
+    if len(x[0]) == 4:
+        print "Is Pari!!!!!"
+    elif len(x[0]) == 3:
+        print "Is Threee or Tuper!!!!"
+    elif len(x[0]) == 2:
+        print "Is four, no nie moge"
