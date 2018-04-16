@@ -1,8 +1,8 @@
-
 hands_order = ["HC","OP","TP","Th", "S", "F", "FH", "Fo", "SF", "RF"]
 
 
 # Loading the data from the source file
+#############################################
 with open("p054_poker.txt") as f:
     dat=f.readlines()
 
@@ -24,11 +24,17 @@ def suit_value(suitLetter):
 
 
 def hand_no(n,player=1):
-    temp = dat[n][0:14].split() if player==1 else dat[n][15:].split()
+    """returns the 5 cards for player one if the second parameter is not given or is equal to 1, otherwise returns the
+    5 cards belonging to player 2"""
+    return dat[n][0:14].split() if player==1 else dat[n][15:].split()
+
+
+def sorted_hand(temp):
     return sorted(temp, key=lambda x: card_value(x[0]) - float(suit_value(x[1]))/4,reverse=True)
 
 
 from collections import Counter
+
 
 def cnts(hand):
     n = Counter(map(lambda x: x[0], hand))
@@ -36,10 +42,15 @@ def cnts(hand):
     return (n,s)
 
 
-if len(x[0]) < 5:
-    if len(x[0]) == 4:
-        print "Is Pari!!!!!"
-    elif len(x[0]) == 3:
-        print "Is Threee or Tuper!!!!"
-    elif len(x[0]) == 2:
-        print "Is four, no nie moge"
+# if len(x[0]) < 5:
+#     if len(x[0]) == 4:
+#         print "Is Pari!!!!!"
+#     elif len(x[0]) == 3:
+#         print "Is Threee or Tuper!!!!"
+#     elif len(x[0]) == 2:
+#         print "Is four, no nie moge"
+
+
+len(s) == 1:
+    return "F"
+else:
