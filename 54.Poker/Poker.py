@@ -46,7 +46,7 @@ def isStraight(cards):
         return(True)
 
 def hand_conf(cards):
-    interim_result=""
+    interim_result="HC"
     x=cnts(cards)
     if len(x[1])==1:
         interim_result="F"
@@ -65,13 +65,24 @@ def hand_conf(cards):
             interim_result="TP"
     else:
         if isStraight(cards):
-            interim_result="S"+interim_result
-    return interim_result
+            if interim_result=="F":
+                interim_result="SF"
+            else:
+                interim_result="S"
+    return hands_order.index(interim_result)
 
-for x in range(1000):
-    tst=hand_no(x)
-    conf=hand_conf(tst)
-    if len(conf) > 0:
-        if conf[0]=="S":
-            print(str(tst) + "  "+ str(x) + " "+ conf)
+def hand_val(cards):
+    num_cnt=cnts(cards)[0]
+    cards=[(card_value(x[0])*15)**(num_cnt[x[0]]+1) for x in cards]
+    return(cards)
 
+def run_some_test():
+    for x in range(4):
+        tst=hand_no(x)
+        tzt=hand_no(x,2)
+        conf=hand_conf(tst)
+        conf2=hand_conf(tzt)
+        print(str(tst) + "  "+ str(x) + " "+ str(conf) + " Val " + str(hand_val(tst)) +"="+ str(sum(hand_val(tst))))
+        print(str(tzt) + "  "+ str(x) + " "+ str(conf2) + " Val " + str(hand_val(tzt)) + "=" + str(sum(hand_val(tzt))))
+
+run_some_test()
