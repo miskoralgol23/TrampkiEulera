@@ -13,3 +13,4 @@ class ValueTest(ut.TestCase):
 
 class howTests(ut.TestCase)
     def testWha
+    hand_val(cards):

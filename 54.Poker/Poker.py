@@ -73,8 +73,18 @@ def hand_conf(cards):
 
 def hand_val(cards):
     num_cnt=cnts(cards)[0]
-    cards=[(card_value(x[0])*15)**(num_cnt[x[0]]+1) for x in cards]
+    cards=[(15**card_value(x[0]))**(num_cnt[x[0]]) for x in cards]
     return(cards)
+
+def hand_vals(n):
+    h1=hand_no(n)
+    h2=hand_no(n,2)
+    hv1=hand_val(h1)
+    hv2=hand_val(h2)
+    hv1v2=list(hv1)
+    hv1v2.extend(hv2)
+    m=max(hv1v2)
+    return m
 
 def run_some_test():
     for x in range(4):
@@ -84,5 +94,20 @@ def run_some_test():
         conf2=hand_conf(tzt)
         print(str(tst) + "  "+ str(x) + " "+ str(conf) + " Val " + str(hand_val(tst)) +"="+ str(sum(hand_val(tst))))
         print(str(tzt) + "  "+ str(x) + " "+ str(conf2) + " Val " + str(hand_val(tzt)) + "=" + str(sum(hand_val(tzt))))
+        print( "1" if sum(hand_val(tst)) > sum(hand_val(tzt)) else "2")
 
 run_some_test()
+print(hand_vals(2))
+
+wins=[]
+for x in range(1000):
+    if hand_conf(hand_no(x)) > hand_conf(hand_no(x,2)):
+        wins.append(x)
+    else:
+        if hand_conf(hand_no(x)) ==hand_conf(hand_no(x,2)) and sum(hand_val(hand_no(x))) > sum(hand_val(hand_no(x,2))):
+            print(str(x) + " " + str(hand_conf(hand_no(x))))
+            wins.append(x)
+
+def both(n):
+    print(str(hand_no(n)) + "  " + str(hand_conf(hand_no(n)))))
+    print(hand_no(n,2))
