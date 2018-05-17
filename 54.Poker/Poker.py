@@ -1,3 +1,4 @@
+import pdb
 hands_order = ["HC","OP","TP","Th", "S", "F", "FH", "Fo", "SF", "RF"]
 
 
@@ -14,10 +15,11 @@ for num in ["T", "J","Q","K","A"]:
     card_numbers.append(num)
 
 deck =  [num + suit for num in card_numbers for suit in card_suits]
-
+#############################################
 
 def card_value(cardNo):
     return card_numbers.index(cardNo) + 2
+
 
 def suit_value(suitLetter):
     return card_suits.index(suitLetter)
@@ -28,13 +30,7 @@ def hand_no(n,player=1):
     5 cards belonging to player 2"""
     return dat[n][0:14].split() if player==1 else dat[n][15:].split()
 
-
-def sorted_hand(temp):
-    return sorted(temp, key=lambda x: card_value(x[0]) - float(suit_value(x[1]))/4,reverse=True)
-
-
 from collections import Counter
-
 
 def cnts(hand):
     n = Counter(map(lambda x: x[0], hand))
@@ -42,15 +38,40 @@ def cnts(hand):
     return (n,s)
 
 
-# if len(x[0]) < 5:
-#     if len(x[0]) == 4:
-#         print "Is Pari!!!!!"
-#     elif len(x[0]) == 3:
-#         print "Is Threee or Tuper!!!!"
-#     elif len(x[0]) == 2:
-#         print "Is four, no nie moge"
+def isStraight(cards):
+    cards=[card_value(x[0]) for x in cards]
+    cards=sorted(cards)
+    cards=[c - cards[0] for c in cards]
+    if cards==[0,1,2,3,4]:
+        return(True)
 
+def hand_conf(cards):
+    interim_result=""
+    x=cnts(cards)
+    if len(x[1])==1:
+        interim_result="F"
+    imm=filter(lambda y:y>1,x[0].values())
+    multiple=sorted(list(imm),reverse=True)
+    if len(multiple)>0:
+        if multiple==[2]:
+            interim_result="OP"
+        if multiple==[3,2]:
+            interim_result="FH"
+        if multiple==[3]:
+            interim_result="Th"
+        if multiple==[4]:
+            interim_result="Fo"
+        if multiple==[2,2]:
+            interim_result="TP"
+    else:
+        if isStraight(cards):
+            interim_result="S"+interim_result
+    return interim_result
 
-len(s) == 1:
-    return "F"
-else:
+for x in range(1000):
+    tst=hand_no(x)
+    conf=hand_conf(tst)
+    if len(conf) > 0:
+        if conf[0]=="S":
+            print(str(tst) + "  "+ str(x) + " "+ conf)
+
