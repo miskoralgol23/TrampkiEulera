@@ -1,6 +1,6 @@
 import pdb
-hands_order = ["HC","OP","TP","Th", "S", "F", "FH", "Fo", "SF", "RF"]
-
+hands_order = ["HC","OP","TP","Th", "S", "F", "FH", "Fo", "SF"]
+#no RF really needed as it's just SF
 
 # Loading the data from the source file
 #############################################
@@ -20,15 +20,17 @@ deck =  [num + suit for num in card_numbers for suit in card_suits]
 def card_value(cardNo):
     return card_numbers.index(cardNo) + 2
 
-
 def suit_value(suitLetter):
     return card_suits.index(suitLetter)
 
-
 def hand_no(n,player=1):
-    """returns the 5 cards for player one if the second parameter is not given or is equal to 1, otherwise returns the
-    5 cards belonging to player 2"""
     return dat[n][0:14].split() if player==1 else dat[n][15:].split()
+
+
+
+def hands_no(n,player=1):
+    return [dat[n][0:14].split(),dat[n][15:].split()]
+
 
 from collections import Counter
 
@@ -36,7 +38,6 @@ def cnts(hand):
     n = Counter(map(lambda x: x[0], hand))
     s = Counter(map(lambda x: x[1], hand))
     return (n,s)
-
 
 def isStraight(cards):
     cards=[card_value(x[0]) for x in cards]
@@ -109,5 +110,5 @@ for x in range(1000):
             wins.append(x)
 
 def both(n):
-    print(str(hand_no(n)) + "  " + str(hand_conf(hand_no(n)))))
-    print(hand_no(n,2))
+    print(str(hand_no(n)) + "  " + str(hand_conf(hand_no(n))))
+    print(str(hand_no(n,2)) + "  " + str(hand_conf(hand_no(n,2))))
